@@ -1,7 +1,6 @@
 package com.example.pruebakotlin.domain
 
 import com.example.pruebakotlin.data.BeerRepository
-import com.example.pruebakotlin.data.model.BeerModel
 import com.example.pruebakotlin.domain.model.Beer
 import javax.inject.Inject
 

@@ -22,7 +22,7 @@ class BeerViewModel @Inject constructor(
     var beerListModel = MutableLiveData<List<Beer>>()
     var beerModel = MutableLiveData<Beer>()
     val isLoading = MutableLiveData<Boolean>()
-    var allItems: List<Beer> = ArrayList()
+    private var allItems: List<Beer> = ArrayList()
 
     fun onCreate() {
         viewModelScope.launch {

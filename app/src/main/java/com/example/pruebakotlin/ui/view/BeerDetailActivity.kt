@@ -1,6 +1,5 @@
 package com.example.pruebakotlin.ui.view
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -80,7 +79,7 @@ class BeerDetailActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        onBackPressed();
-        return true;
+        onBackPressed()
+        return true
     }
 }

@@ -4,7 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.pruebakotlin.domain.model.Beer
-import java.sql.Date
 
 @Entity(tableName = "beers_table")
 data class BeerEntity(

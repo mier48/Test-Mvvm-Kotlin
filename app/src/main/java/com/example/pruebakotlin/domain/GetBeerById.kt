@@ -1,6 +1,5 @@
 package com.example.pruebakotlin.domain
 
-import com.example.pruebakotlin.data.model.BeerModel
 import com.example.pruebakotlin.data.model.BeerProvider
 import com.example.pruebakotlin.domain.model.Beer
 import com.example.pruebakotlin.domain.model.toDomain
