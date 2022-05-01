@@ -52,6 +52,7 @@ class FavoritesFragment : Fragment() {
     private fun onBeerSelected(beer: Beer) {
         val intent = Intent(activity, BeerDetailActivity::class.java)
         intent.putExtra("_id", beer.id)
+        intent.putExtra("_isFav", true)
         startActivity(intent)
     }
 

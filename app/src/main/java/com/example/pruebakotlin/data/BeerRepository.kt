@@ -50,8 +50,12 @@ class BeerRepository @Inject constructor(
 
     suspend fun getFavoritesBeers(): List<Beer> {
         val response = beerDao.getAllFavorites()
-        Log.e("TAG", response.toString())
         return response.map { it.toDomain() }
+    }
+
+    suspend fun getFavoriteBeer(id: Int): Beer {
+        val response = beerDao.getFavorite(id)
+        return response.toDomain()
     }
 
     suspend fun addFavorite(beer: BeerEntity) {

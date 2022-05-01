@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.example.pruebakotlin.R
 import com.example.pruebakotlin.databinding.ActivityBeerDetailBinding
+import com.example.pruebakotlin.domain.model.Beer
 import com.example.pruebakotlin.ui.viewmodel.BeerViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,8 +28,13 @@ class BeerDetailActivity : AppCompatActivity() {
 
         val id: Int = intent.getIntExtra("_id", 0)
         val fav: Boolean = intent.getBooleanExtra("_fav", false)
+        val isFav: Boolean = intent.getBooleanExtra("_isFav", false)
 
-        beerViewModel.onCreate(id)
+        if (!isFav) {
+            beerViewModel.onCreate(id)
+        } else {
+            beerViewModel.favoriteBeer(id)
+        }
 
         beerViewModel.beerModel.observe(this, Observer { beer ->
             supportActionBar?.title = beer.title
@@ -51,7 +57,7 @@ class BeerDetailActivity : AppCompatActivity() {
                 }
             }
 
-            if (fav) {
+            if (fav || isFav) {
                 binding.addToFavorite.setImageDrawable(
                     AppCompatResources.getDrawable(
                         this,
@@ -65,6 +71,25 @@ class BeerDetailActivity : AppCompatActivity() {
                         R.drawable.ic_empty_star
                     )
                 )
+            }
+
+            binding.addToFavorite.setOnClickListener {
+                addToFavorite(beer)
+                if (fav || isFav) {
+                    binding.addToFavorite.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            this,
+                            R.drawable.ic_empty_star
+                        )
+                    )
+                } else {
+                    binding.addToFavorite.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            this,
+                            R.drawable.ic_star
+                        )
+                    )
+                }
             }
 
             Picasso.get().load(beer.image).into(binding.beerImage)
@@ -82,5 +107,13 @@ class BeerDetailActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    private fun addToFavorite(beer: Beer) {
+        if (beer.fav) {
+            beerViewModel.deleteFavorite(beer)
+        } else {
+            beerViewModel.addToFavorite(beer)
+        }
     }
 }

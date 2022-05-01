@@ -17,4 +17,7 @@ interface BeerDao {
 
     @Query("DELETE FROM beers_table WHERE id = :beerId")
     suspend fun remove(beerId: Int)
+
+    @Query("SELECT * FROM beers_table WHERE id = :beerId")
+    suspend fun getFavorite(beerId: Int): BeerEntity
 }

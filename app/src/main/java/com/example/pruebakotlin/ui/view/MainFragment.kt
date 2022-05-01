@@ -37,7 +37,7 @@ class MainFragment : Fragment() {
         val manager = LinearLayoutManager(activity)
         binding.beerList.layoutManager = manager
 
-        beerViewModel.onCreate()
+        //beerViewModel.onCreate()
 
         beerViewModel.beerListModel.observe(viewLifecycleOwner, Observer {
             binding.beerList.adapter =
@@ -59,7 +59,7 @@ class MainFragment : Fragment() {
                 if (s != null && s.isNotEmpty()) {
                     beerViewModel.byName(s.toString().lowercase())
                 } else {
-                    beerViewModel.all()
+                    beerViewModel.empty()
                 }
             }
         })
@@ -85,7 +85,5 @@ class MainFragment : Fragment() {
         } else {
             beerViewModel.addToFavorite(beer)
         }
-
-
     }
 }

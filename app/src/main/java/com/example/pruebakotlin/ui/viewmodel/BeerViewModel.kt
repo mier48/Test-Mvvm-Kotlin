@@ -24,6 +24,15 @@ class BeerViewModel @Inject constructor(
     val isLoading = MutableLiveData<Boolean>()
     private var allItems: List<Beer> = ArrayList()
 
+    fun empty() {
+        viewModelScope.launch {
+            isLoading.postValue(true)
+
+            beerListModel.postValue(emptyList())
+            isLoading.postValue(false)
+        }
+    }
+
     fun onCreate() {
         viewModelScope.launch {
             isLoading.postValue(true)
@@ -108,6 +117,17 @@ class BeerViewModel @Inject constructor(
 
             val result = getFavoritesBeers()
             favBeerListModel.postValue(result)
+        }
+    }
+
+    fun favoriteBeer(id: Int) {
+        viewModelScope.launch {
+            isLoading.postValue(true)
+
+            val result = getFavoritesBeers(id)
+
+            beerModel.postValue(result)
+            isLoading.postValue(false)
         }
     }
 }

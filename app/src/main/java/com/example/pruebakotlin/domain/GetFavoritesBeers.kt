@@ -9,4 +9,8 @@ class GetFavoritesBeers @Inject constructor(private val repository: BeerReposito
     suspend operator fun invoke(): List<Beer> {
         return repository.getFavoritesBeers()
     }
+
+    suspend operator fun invoke(id: Int): Beer {
+        return repository.getFavoriteBeer(id)
+    }
 }
