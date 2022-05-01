@@ -31,35 +31,5 @@ class BeerMainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-//        val manager = LinearLayoutManager(this)
-//        //val decoration = DividerItemDecoration(this, manager.orientation)
-//        binding.beerList.layoutManager = manager
-//        //binding.beerList.addItemDecoration(decoration)
-//
-//        beerViewModel.onCreate()
-//
-//        beerViewModel.beerListModel.observe(this, Observer {
-//            binding.beerList.adapter =
-//                BeerAdapter(it, { beer -> onBeerSelected(beer) }, { beer -> addToFavorite(beer) })
-//        })
-//
-//        beerViewModel.isLoading.observe(this, Observer {
-//            binding.progress.isVisible = it
-//        })
-//
-//        binding.searcherEditText.addTextChangedListener(object : TextWatcher {
-//            override fun afterTextChanged(s: Editable?) {
-//            }
-//
-//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-//            }
-//
-//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//                if (s != null) {
-//                    beerViewModel.byName(s.toString().lowercase())
-//                }
-//            }
-//        })
     }
 }

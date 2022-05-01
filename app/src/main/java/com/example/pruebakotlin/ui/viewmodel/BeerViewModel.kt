@@ -92,6 +92,14 @@ class BeerViewModel @Inject constructor(
     fun deleteFavorite(beer: Beer) {
         viewModelScope.launch {
             removeFavorite.invoke(beer)
+
+            for (i in allItems) {
+                if (i.id == beer.id) {
+                    i.fav = false
+                }
+            }
+
+            beerListModel.postValue(allItems)
         }
     }
 

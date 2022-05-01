@@ -26,6 +26,7 @@ class BeerDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val id: Int = intent.getIntExtra("_id", 0)
+        val fav: Boolean = intent.getBooleanExtra("_fav", false)
 
         beerViewModel.onCreate(id)
 
@@ -50,7 +51,7 @@ class BeerDetailActivity : AppCompatActivity() {
                 }
             }
 
-            if (beer.fav) {
+            if (fav) {
                 binding.addToFavorite.setImageDrawable(
                     AppCompatResources.getDrawable(
                         this,
