@@ -29,8 +29,8 @@
 
         <RelativeLayout
             android:id="@+id/beerAbvCircle"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@drawable/circle_green"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -42,7 +42,7 @@
                 android:layout_centerInParent="true"
                 android:gravity="center"
                 android:textAlignment="center"
-                android:textSize="12sp"
+                android:textSize="10sp"
                 android:textStyle="bold|italic" />
         </RelativeLayout>
 
