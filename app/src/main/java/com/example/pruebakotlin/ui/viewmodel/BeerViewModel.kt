@@ -72,18 +72,6 @@ class BeerViewModel @Inject constructor(
         }
     }
 
-    fun all() {
-        viewModelScope.launch {
-            isLoading.postValue(true)
-
-            val result = getBeers()
-            allItems = result
-
-            beerListModel.postValue(result)
-            isLoading.postValue(false)
-        }
-    }
-
     fun addToFavorite(beer: Beer) {
         viewModelScope.launch {
             addFavorite.invoke(beer)

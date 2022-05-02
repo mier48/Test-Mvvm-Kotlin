@@ -76,6 +76,7 @@ class MainFragment : Fragment() {
         val intent = Intent(activity, BeerDetailActivity::class.java)
         intent.putExtra("_id", beer.id)
         intent.putExtra("_fav", beer.fav)
+
         startActivity(intent)
     }
 

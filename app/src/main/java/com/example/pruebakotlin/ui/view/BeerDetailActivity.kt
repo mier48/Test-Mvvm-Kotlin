@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.example.pruebakotlin.R
@@ -92,7 +93,8 @@ class BeerDetailActivity : AppCompatActivity() {
                 }
             }
 
-            Picasso.get().load(beer.image).into(binding.beerImage)
+            val placeholder = ResourcesCompat.getDrawable(resources, R.mipmap.placeholder, null)
+            Picasso.get().load(beer.image).placeholder(placeholder!!).into(binding.beerImage)
         })
         beerViewModel.isLoading.observe(this, Observer {
             binding.progress.isVisible = it

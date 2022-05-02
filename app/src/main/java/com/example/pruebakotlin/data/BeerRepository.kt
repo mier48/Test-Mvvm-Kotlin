@@ -1,6 +1,5 @@
 package com.example.pruebakotlin.data
 
-import android.util.Log
 import com.example.pruebakotlin.data.database.dao.BeerDao
 import com.example.pruebakotlin.data.database.entities.BeerEntity
 import com.example.pruebakotlin.data.model.BeerModel
