@@ -17,10 +17,13 @@ import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class BeerViewModelTest {
+class BeerListViewModelTest {
 
     @RelaxedMockK
     private lateinit var getBeers: GetBeers
+
+    @RelaxedMockK
+    private lateinit var getBeersByName: GetBeersByName
 
     @RelaxedMockK
     private lateinit var getBeerById: GetBeerById
@@ -34,7 +37,10 @@ class BeerViewModelTest {
     @RelaxedMockK
     private lateinit var getFavoritesBeers: GetFavoritesBeers
 
-    private lateinit var beerViewModel: BeerViewModel
+    @RelaxedMockK
+    private lateinit var getFavoritesBeerById: GetFavoritesBeerById
+
+    private lateinit var beerListViewModel: BeerListViewModel
 
     @get:Rule
     var rule: InstantTaskExecutorRule = InstantTaskExecutorRule()
@@ -42,8 +48,8 @@ class BeerViewModelTest {
     @Before
     fun onBefore() {
         MockKAnnotations.init(this)
-        beerViewModel =
-            BeerViewModel(getBeers, getBeerById, addFavorite, removeFavorite, getFavoritesBeers)
+        beerListViewModel =
+            BeerListViewModel(getBeers, getBeersByName, getBeerById, addFavorite, removeFavorite, getFavoritesBeers, getFavoritesBeerById)
 
         Dispatchers.setMain(Dispatchers.Unconfined)
     }
@@ -63,10 +69,10 @@ class BeerViewModelTest {
         coEvery { getBeers() } returns myList
 
         //When
-        beerViewModel.onCreate()
+        beerListViewModel.onCreate()
 
         //Then
-        assert(beerViewModel.beerListModel.value == myList)
+        assert(beerListViewModel.beerListModel.value == myList)
     }
 
     @Test
@@ -76,13 +82,13 @@ class BeerViewModelTest {
         val beer2 = Beer(2, "Imperial Ipa 2", "https://images.punkapi.com/v2/4.png", "lorem ipsum dolor sit amet", 7.5f, false)
         val myList = listOf(beer1, beer2)
 
-        coEvery { getBeers("Ipa") } returns myList
+        coEvery { getBeersByName("Ipa") } returns myList
 
         //When
-        beerViewModel.byName("Ipa")
+        beerListViewModel.byName("Ipa")
 
         //Then
-        assert(beerViewModel.beerListModel.value == myList)
+        assert(beerListViewModel.beerListModel.value == myList)
     }
 
     @Test
@@ -92,12 +98,12 @@ class BeerViewModelTest {
         val beer2 = Beer(2, "Imperial Ipa 2", "https://images.punkapi.com/v2/4.png", "lorem ipsum dolor sit amet", 7.5f, false)
         val myList = listOf(beer1, beer2)
 
-        coEvery { getBeers("stout") } returns emptyList()
+        coEvery { getBeersByName("stout") } returns emptyList()
 
         //When
-        beerViewModel.byName("stout")
+        beerListViewModel.byName("stout")
 
         //Then
-        assert(beerViewModel.beerListModel.value != null)
+        assert(beerListViewModel.beerListModel.value != null)
     }
 }

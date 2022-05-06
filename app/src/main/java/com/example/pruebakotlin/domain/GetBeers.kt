@@ -9,8 +9,4 @@ class GetBeers @Inject constructor(private val repository: BeerRepository) {
     suspend operator fun invoke(): List<Beer> {
         return repository.getAllBeers()
     }
-
-    suspend operator fun invoke(name: String): List<Beer> {
-        return repository.getBeersByName(name)
-    }
 }

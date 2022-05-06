@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pruebakotlin.databinding.FragmentMainBinding
 import com.example.pruebakotlin.domain.model.Beer
 import com.example.pruebakotlin.ui.adapter.BeerAdapter
-import com.example.pruebakotlin.ui.viewmodel.BeerViewModel
+import com.example.pruebakotlin.ui.viewmodel.BeerListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,7 +24,7 @@ class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
-    private val beerViewModel: BeerViewModel by viewModels()
+    private val beerListViewModel: BeerListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,12 +39,12 @@ class MainFragment : Fragment() {
 
         //beerViewModel.onCreate()
 
-        beerViewModel.beerListModel.observe(viewLifecycleOwner, Observer {
+        beerListViewModel.beerListModel.observe(viewLifecycleOwner, Observer {
             binding.beerList.adapter =
                 BeerAdapter(it, { beer -> onBeerSelected(beer) }, { beer -> addToFavorite(beer) })
         })
 
-        beerViewModel.isLoading.observe(viewLifecycleOwner, Observer {
+        beerListViewModel.isLoading.observe(viewLifecycleOwner, Observer {
             binding.progress.isVisible = it
         })
 
@@ -57,9 +57,9 @@ class MainFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s != null && s.isNotEmpty()) {
-                    beerViewModel.byName(s.toString().lowercase())
+                    beerListViewModel.byName(s.toString().lowercase())
                 } else {
-                    beerViewModel.empty()
+                    beerListViewModel.empty()
                 }
             }
         })
@@ -82,9 +82,9 @@ class MainFragment : Fragment() {
 
     private fun addToFavorite(beer: Beer) {
         if (beer.fav) {
-            beerViewModel.deleteFavorite(beer)
+            beerListViewModel.deleteFavorite(beer)
         } else {
-            beerViewModel.addToFavorite(beer)
+            beerListViewModel.addToFavorite(beer)
         }
     }
 }

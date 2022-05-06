@@ -10,38 +10,53 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BeerViewModel @Inject constructor(
+class BeerListViewModel @Inject constructor(
+    private val getBeers: GetBeers,
+    private val getBeersByName: GetBeersByName,
     private val getBeerById: GetBeerById,
     private val addFavorite: AddFavorite,
     private val removeFavorite: RemoveFavorite,
+    private val getFavoritesBeers: GetFavoritesBeers,
     private val getFavoritesBeerById: GetFavoritesBeerById
 ) : ViewModel() {
 
+    var favBeerListModel = MutableLiveData<List<Beer>>()
     var beerListModel = MutableLiveData<List<Beer>>()
     var beerModel = MutableLiveData<Beer>()
     val isLoading = MutableLiveData<Boolean>()
     private var allItems: List<Beer> = ArrayList()
 
-    fun onCreate(id: Int) {
+    fun empty() {
         viewModelScope.launch {
             isLoading.postValue(true)
 
-            val result = getBeerById(id)
+            beerListModel.postValue(emptyList())
+            isLoading.postValue(false)
+        }
+    }
 
-            if (result != null) {
-                beerModel.postValue(result!!)
+    fun onCreate() {
+        viewModelScope.launch {
+            isLoading.postValue(true)
+
+            val result = getBeers()
+            allItems = result
+
+            if (!result.isNullOrEmpty()) {
+                beerListModel.postValue(result)
                 isLoading.postValue(false)
             }
         }
     }
 
-    fun favoriteBeer(id: Int) {
+    fun byName(name: String) {
         viewModelScope.launch {
             isLoading.postValue(true)
 
-            val result = getFavoritesBeerById(id)
+            val result = getBeersByName(name)
+            allItems = result
 
-            beerModel.postValue(result)
+            beerListModel.postValue(result)
             isLoading.postValue(false)
         }
     }
@@ -71,6 +86,14 @@ class BeerViewModel @Inject constructor(
             }
 
             beerListModel.postValue(allItems)
+        }
+    }
+
+    fun favoritesBeers() {
+        viewModelScope.launch {
+
+            val result = getFavoritesBeers()
+            favBeerListModel.postValue(result)
         }
     }
 }

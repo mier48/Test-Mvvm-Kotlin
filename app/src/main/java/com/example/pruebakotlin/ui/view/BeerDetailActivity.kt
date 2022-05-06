@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.example.pruebakotlin.R
 import com.example.pruebakotlin.databinding.ActivityBeerDetailBinding
 import com.example.pruebakotlin.domain.model.Beer
+import com.example.pruebakotlin.ui.viewmodel.BeerListViewModel
 import com.example.pruebakotlin.ui.viewmodel.BeerViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint

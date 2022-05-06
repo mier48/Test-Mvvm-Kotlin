@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pruebakotlin.databinding.FragmentFavoritesBinding
 import com.example.pruebakotlin.domain.model.Beer
 import com.example.pruebakotlin.ui.adapter.BeerAdapter
-import com.example.pruebakotlin.ui.viewmodel.BeerViewModel
+import com.example.pruebakotlin.ui.viewmodel.BeerListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,7 +21,7 @@ class FavoritesFragment : Fragment() {
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
 
-    private val beerViewModel: BeerViewModel by viewModels()
+    private val beerListViewModel: BeerListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,9 +34,9 @@ class FavoritesFragment : Fragment() {
         val manager = LinearLayoutManager(activity)
         binding.favoritesBeerList.layoutManager = manager
 
-        beerViewModel.favoritesBeers()
+        beerListViewModel.favoritesBeers()
 
-        beerViewModel.favBeerListModel.observe(viewLifecycleOwner, Observer {
+        beerListViewModel.favBeerListModel.observe(viewLifecycleOwner, Observer {
             binding.favoritesBeerList.adapter =
                 BeerAdapter(it, { beer -> onBeerSelected(beer) }, { beer -> removeFavorite(beer) })
         })
@@ -57,7 +57,7 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun removeFavorite(beer: Beer) {
-        beerViewModel.deleteFavorite(beer)
-        beerViewModel.favoritesBeers()
+        beerListViewModel.deleteFavorite(beer)
+        beerListViewModel.favoritesBeers()
     }
 }
