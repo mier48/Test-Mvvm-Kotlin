@@ -36,6 +36,15 @@ class BeerRepository @Inject constructor(
         beerProvider.beers = response
         val result = response.map { it.toDomain() }
         val fav = getFavoritesBeers()
+
+//        result.map { r ->
+//            fav.map {  f ->
+//                if (r.id == f.id) {
+//                    r.fav = true
+//                }
+//            }
+//        }
+
         for (r in result) {
             for (f in fav) {
                 if (r.id == f.id) {
