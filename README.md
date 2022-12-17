@@ -1,3 +1,8 @@
-# TestMvvmKotlin
+# Test MVVM Kotlin
 
-Pequeña app en kotlin de un buscador de cervezas con la Api: punkapi
+Pequeña app de un buscador de cervezas
+
+## Built with 🛠️
+
+* [Kotlin]
+* [PunkApi](https://punkapi.com/)
